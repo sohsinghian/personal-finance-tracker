@@ -20,3 +20,33 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+td,
+tr,
+th {
+  border-bottom: 1px solid #333;
+}
+
+/* tr,
+tfoot {
+  border-bottom: 1px solid #333;
+} */
+
+table {
+  text-align: center;
+}
+
+.active-stocks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h2,
+h1 {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
