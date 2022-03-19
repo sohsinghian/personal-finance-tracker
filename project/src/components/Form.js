@@ -1,26 +1,16 @@
 import React, { useState } from "react";
 
-const Form = () => {
-  const [query, setQuery] = useState("");
-
-  const handleQueryChange = (event) => {
-    setQuery(event.target.value);
-  };
-
+const Form = (props) => {
   const handleQuerySubmit = (event) => {
     event.preventDefault();
-    console.log(query);
+    props.setQuery(event.target.input.value);
+    console.log(props.query);
   };
 
   return (
     <>
       <form onSubmit={handleQuerySubmit}>
-        <input
-          value={query}
-          type="text"
-          placeholder="Enter stock..."
-          onChange={handleQueryChange}
-        ></input>
+        <input name="input" type="text" placeholder="Enter stock..."></input>
         <button type="submit">
           Search
           {/* <img src="/images/search-icon.png" alt="Search"></img> */}
