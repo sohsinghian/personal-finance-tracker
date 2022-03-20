@@ -10,7 +10,11 @@ const Form = (props) => {
   return (
     <>
       <form onSubmit={handleQuerySubmit}>
-        <input name="input" type="text" placeholder="Enter stock..."></input>
+        <input
+          name="input"
+          type="text"
+          placeholder="Enter stock symbol..."
+        ></input>
         <button type="submit">
           Search
           {/* <img src="/images/search-icon.png" alt="Search"></img> */}

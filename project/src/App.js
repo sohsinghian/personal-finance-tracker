@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import ConsumingStockAPI from "./components/ConsumingStockAPI";
-import Form from "./components/Form";
-import MostActiveStocksAPI from "./components/MostActiveStocksAPI";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import ActiveStocks from "./pages/ActiveStocks";
+import Home from "./pages/Home";
+import StockSearch from "./pages/StockSearch";
 
 function App() {
-  const [query, setQuery] = useState("");
-
   return (
     <>
       <h1>Personal Finance Tracker</h1>
-      <Form query={query} setQuery={setQuery} />
-      {/* <ConsumingStockAPI query={query} /> */}
-      {/* <MostActiveStocksAPI /> */}
+      <NavBar />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/active-stocks" element={<ActiveStocks />} />
+        <Route path="/stock-search" element={<StockSearch />} />
+      </Routes>
     </>
   );
 }
