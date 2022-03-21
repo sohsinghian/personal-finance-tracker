@@ -42,13 +42,11 @@ const MostActiveStocksAPI = () => {
       return (
         <>
           <tr>
-            <td>{element.name}</td>
             <td>{element.symbol}</td>
+            <td>{element.name}</td>
             <td>{element.price.toFixed(2)}</td>
-            <td>
-              {element.change.toFixed(2)} (
-              {element.changesPercentage.toFixed(2)}%)
-            </td>
+            <td>{element.change.toFixed(2)}</td>
+            <td>{element.changesPercentage.toFixed(2)}%</td>
           </tr>
         </>
       );
@@ -60,10 +58,11 @@ const MostActiveStocksAPI = () => {
           <table>
             <thead>
               <tr>
-                <th>Company Name</th>
                 <th>Symbol</th>
+                <th>Name</th>
                 <th>Price</th>
                 <th>Change</th>
+                <th>Percentage Change</th>
               </tr>
             </thead>
             <tbody>{rowData}</tbody>

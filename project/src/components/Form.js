@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import Button from "./Button";
 
 const Form = (props) => {
   const handleQuerySubmit = (event) => {
@@ -15,10 +16,7 @@ const Form = (props) => {
           type="text"
           placeholder="Enter stock symbol..."
         ></input>
-        <button type="submit">
-          Search
-          {/* <img src="/images/search-icon.png" alt="Search"></img> */}
-        </button>
+        <Button type="submit" buttonText="Search" />
       </form>
     </>
   );

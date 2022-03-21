@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import ConsumingStockAPI from "../components/ConsumingStockAPI";
 import Form from "../components/Form";
 
-const StockSearch = () => {
+const StockSearch = (props) => {
   const [query, setQuery] = useState("");
 
   return (
     <>
-      <h1>Stock Search</h1>
+      <h2>Stock Search</h2>
       <Form query={query} setQuery={setQuery} />
-      {/* <ConsumingStockAPI query={query} /> */}
+      {/* <ConsumingStockAPI
+        query={query}
+        stockInfo={props.stockInfo}
+        setStockInfo={props.setStockInfo}
+      /> */}
     </>
   );
 };

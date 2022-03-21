@@ -4,7 +4,7 @@ import MostActiveStocksAPI from "../components/MostActiveStocksAPI";
 const ActiveStocks = () => {
   return (
     <>
-      <h1>Active Stocks</h1>
+      <h2>Active Stocks</h2>
       {/* <MostActiveStocksAPI /> */}
     </>
   );
