@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
 
 // https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be
@@ -40,15 +41,27 @@ const MostActiveStocks = () => {
   if (activeStocks) {
     rowData = activeStocks.map((element) => {
       return (
-        <>
-          <tr>
-            <td>{element.symbol}</td>
-            <td>{element.name}</td>
-            <td>{element.price.toFixed(2)}</td>
-            <td>{element.change.toFixed(2)}</td>
-            <td>{element.changesPercentage.toFixed(2)}%</td>
-          </tr>
-        </>
+        <tr key={nanoid()}>
+          <td>{element.symbol}</td>
+          <td>{element.name}</td>
+          <td>{element.price.toFixed(2)}</td>
+          <td
+            style={
+              element.change > 0 ? { color: "limegreen" } : { color: "red" }
+            }
+          >
+            {element.change.toFixed(2)}
+          </td>
+          <td
+            style={
+              element.changesPercentage > 0
+                ? { color: "limegreen" }
+                : { color: "red" }
+            }
+          >
+            {element.changesPercentage.toFixed(2)}%
+          </td>
+        </tr>
       );
     });
     content = (

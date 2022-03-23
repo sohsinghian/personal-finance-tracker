@@ -27,13 +27,15 @@ const Portfolio = (props) => {
 
       let numOfShares = Number(props.portfolioInfo.numOfShares);
       let buyPrice = Number(props.portfolioInfo.buyPrice);
-      let investment = numOfShares * buyPrice;
+      let investment = Number(numOfShares * buyPrice);
       let currentPrice = Number(data[0].price.toFixed(2));
-      let currentValue = numOfShares * currentPrice;
-      let profitAndLoss = currentValue - investment;
+      let currentValue = Number(numOfShares * currentPrice);
+      let profitAndLoss = Number(currentValue - investment);
+
+      let id = nanoid();
 
       let newStock = {
-        id: nanoid(),
+        id: id,
         name: data[0].name,
         symbol: data[0].symbol,
         numOfShares: numOfShares,
@@ -52,17 +54,15 @@ const Portfolio = (props) => {
   };
 
   const handleDelete = (event) => {
-    console.log(event.target.parentNode.parentNode);
-    // for (let i = 0; i < props.portfolio.length; i++) {
-    //   if (props.portfolio[i].id === event.target.parentNode.parentNode.id) {
-    //     props.portfolio.splice(i, 1);
-    //   }
-    // }
-    console.log(props.portfolio);
-
-    // props.portfolio.filter(id !== event.target.parentNode.parentNode.id);
+    let update = [...props.portfolio];
+    for (let i = 0; i < props.portfolio.length; i++) {
+      if (props.portfolio[i].id === event.target.parentNode.parentNode.id) {
+        update.splice(i, 1);
+      }
+    }
+    props.setPortfolio(update);
   };
-  // let rand;
+
   return (
     <>
       {props.portfolio && (
@@ -83,24 +83,28 @@ const Portfolio = (props) => {
             </thead>
             <tbody>
               {props.portfolio.map((element) => {
-                // rand = nanoid();
                 return (
-                  <>
-                    {/* <tr key={rand} id={rand}> */}
-                    <tr id={element.id}>
-                      <td>{element.name}</td>
-                      <td>{element.symbol}</td>
-                      <td>{element.numOfShares}</td>
-                      <td>${element.buyPrice}</td>
-                      <td>${element.investment}</td>
-                      <td>${element.currentPrice}</td>
-                      <td>${element.currentValue}</td>
-                      <td>${element.profitAndLoss}</td>
-                      <td>
-                        <Button text="Delete" onClick={handleDelete} />
-                      </td>
-                    </tr>
-                  </>
+                  <tr key={nanoid()} id={element.id}>
+                    <td>{element.name}</td>
+                    <td>{element.symbol}</td>
+                    <td>{element.numOfShares}</td>
+                    <td>${element.buyPrice}</td>
+                    <td>${element.investment}</td>
+                    <td>${element.currentPrice}</td>
+                    <td>${element.currentValue}</td>
+                    <td
+                      style={
+                        element.profitAndLoss > 0
+                          ? { color: "limegreen" }
+                          : { color: "red" }
+                      }
+                    >
+                      ${element.profitAndLoss}
+                    </td>
+                    <td>
+                      <Button text="Delete" onClick={handleDelete} />
+                    </td>
+                  </tr>
                 );
               })}
               <tr>
@@ -111,7 +115,15 @@ const Portfolio = (props) => {
                 <td></td>
                 <td></td>
                 <td>Total:</td>
-                <td></td>
+                <td
+                  style={
+                    props.totalProfitAndLoss > 0
+                      ? { color: "limegreen" }
+                      : { color: "red" }
+                  }
+                >
+                  ${props.totalProfitAndLoss}
+                </td>
                 <td></td>
               </tr>
             </tbody>

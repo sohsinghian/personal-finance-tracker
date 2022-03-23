@@ -63,8 +63,24 @@ const StockInfo = (props) => {
                     <td>{stockInfo.symbol}</td>
                     <td>{stockInfo.name}</td>
                     <td>{stockInfo.price}</td>
-                    <td style={{ color: "green" }}>{stockInfo.change}</td>
-                    <td style={{ color: "green" }}>{stockInfo.percentage}%</td>
+                    <td
+                      style={
+                        stockInfo.change > 0
+                          ? { color: "limegreen" }
+                          : { color: "red" }
+                      }
+                    >
+                      {stockInfo.change}
+                    </td>
+                    <td
+                      style={
+                        stockInfo.percentage > 0
+                          ? { color: "limegreen" }
+                          : { color: "red" }
+                      }
+                    >
+                      {stockInfo.percentage}%
+                    </td>
                   </tr>
                 </tbody>
               </table>
