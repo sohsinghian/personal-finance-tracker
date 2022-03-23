@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 // https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be
 
-const MostActiveStocksAPI = () => {
-  const url = `https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be`;
+const MostActiveStocks = () => {
+  const url = `https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=1b69ae383498bc758a5ed7838b33da15`;
   const [activeStocks, setActiveStocks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,7 +29,7 @@ const MostActiveStocksAPI = () => {
 
       setActiveStocks(data);
     } catch (err) {
-      setError(err.message);
+      setError(console.log(err.message));
     }
 
     setIsLoading(false);
@@ -54,7 +54,6 @@ const MostActiveStocksAPI = () => {
     content = (
       <>
         <div className="active-stocks">
-          <h2>Most Active Stocks</h2>
           <table>
             <thead>
               <tr>
@@ -91,4 +90,4 @@ const MostActiveStocksAPI = () => {
   );
 };
 
-export default MostActiveStocksAPI;
+export default MostActiveStocks;

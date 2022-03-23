@@ -1,11 +1,11 @@
 import React from "react";
-import MostActiveStocksAPI from "../components/MostActiveStocksAPI";
+import MostActiveStocks from "../components/MostActiveStocks";
 
 const ActiveStocks = () => {
   return (
     <>
-      <h2>Active Stocks</h2>
-      {/* <MostActiveStocksAPI /> */}
+      <h2>Most Active Stocks</h2>
+      <MostActiveStocks />
     </>
   );
 };

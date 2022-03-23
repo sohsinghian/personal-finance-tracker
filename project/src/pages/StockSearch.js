@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ConsumingStockAPI from "../components/ConsumingStockAPI";
+import StockInfo from "../components/StockInfo";
 import Form from "../components/Form";
 
 const StockSearch = (props) => {
@@ -9,11 +9,7 @@ const StockSearch = (props) => {
     <>
       <h2>Stock Search</h2>
       <Form query={query} setQuery={setQuery} />
-      {/* <ConsumingStockAPI
-        query={query}
-        stockInfo={props.stockInfo}
-        setStockInfo={props.setStockInfo}
-      /> */}
+      <StockInfo query={query} />
     </>
   );
 };
