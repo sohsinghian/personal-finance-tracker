@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-const Form = (props) => {
+const SearchForm = (props) => {
   const [description, setDescription] = useState("");
 
   const handleDescriptionChange = (input) => {
@@ -31,4 +31,4 @@ const Form = (props) => {
   );
 };
 
-export default Form;
+export default SearchForm;

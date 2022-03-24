@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StockInfo from "../components/StockInfo";
-import Form from "../components/Form";
+import SearchForm from "../components/SearchForm";
 
 const StockSearch = (props) => {
   const [query, setQuery] = useState("");
@@ -8,7 +8,7 @@ const StockSearch = (props) => {
   return (
     <>
       <h2>Stock Search</h2>
-      <Form query={query} setQuery={setQuery} />
+      <SearchForm query={query} setQuery={setQuery} />
       <br />
       <StockInfo query={query} />
     </>

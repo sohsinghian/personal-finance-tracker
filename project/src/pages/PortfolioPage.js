@@ -3,19 +3,19 @@ import Portfolio from "../components/Portfolio";
 import PortfolioForm from "../components/PortfolioForm";
 
 const PortfolioPage = () => {
-  const [portfolioInfo, setPortfolioInfo] = useState();
-  const [portfolio, setPortfolio] = useState([]);
+  const [portfolioInputs, setPortfolioInputs] = useState();
+  const [portfolioData, setPortfolioData] = useState([]);
   const [totals, setTotals] = useState({});
 
   const handlePortfolio = (newStock) => {
-    setPortfolio((prevState) => {
+    setPortfolioData((prevState) => {
       return [...prevState, newStock];
     });
   };
   useEffect(() => {
-    if (portfolio.length === 0) {
+    if (portfolioData.length === 0) {
       let item = localStorage.getItem("portfolio");
-      setPortfolio(JSON.parse(item));
+      setPortfolioData(JSON.parse(item));
     }
   }, []);
 
@@ -23,10 +23,10 @@ const PortfolioPage = () => {
     let totalPNL = 0;
     let totalInvested = 0;
     let overallROI = 0;
-    if (portfolio.length >= 0) {
-      for (let i = 0; i < portfolio.length; i++) {
-        totalPNL = totalPNL + Number(portfolio[i].profitAndLoss);
-        totalInvested = totalInvested + Number(portfolio[i].investment);
+    if (portfolioData.length >= 0) {
+      for (let i = 0; i < portfolioData.length; i++) {
+        totalPNL = totalPNL + Number(portfolioData[i].profitAndLoss);
+        totalInvested = totalInvested + Number(portfolioData[i].investment);
         overallROI = (totalPNL / totalInvested) * 100;
       }
 
@@ -36,23 +36,23 @@ const PortfolioPage = () => {
         averageROI: overallROI.toFixed(2),
       });
 
-      localStorage.setItem("portfolio", JSON.stringify(portfolio));
+      localStorage.setItem("portfolio", JSON.stringify(portfolioData));
     }
-  }, [portfolio]);
+  }, [portfolioData]);
 
   return (
     <>
       <h2>Portfolio</h2>
       <PortfolioForm
-        portfolioInfo={portfolioInfo}
-        setPortfolioInfo={setPortfolioInfo}
+        portfolioInputs={portfolioInputs}
+        setPortfolioInputs={setPortfolioInputs}
       />
       <br />
       <Portfolio
-        portfolioInfo={portfolioInfo}
-        setPortfolioInfo={setPortfolioInfo}
-        portfolio={portfolio}
-        setPortfolio={setPortfolio}
+        portfolioInputs={portfolioInputs}
+        setPortfolioInputs={setPortfolioInputs}
+        portfolioData={portfolioData}
+        setPortfolioData={setPortfolioData}
         handlePortfolio={handlePortfolio}
         totals={totals}
       />

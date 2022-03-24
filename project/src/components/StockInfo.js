@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
 import LoadingSpinner from "./LoadingSpinner";
 
 // API key: 85227d12425f57eca668c4fd1484e6be

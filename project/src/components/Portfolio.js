@@ -8,11 +8,11 @@ const Portfolio = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (props.portfolioInfo) {
-      const url = `https://financialmodelingprep.com/api/v3/quote/${props.portfolioInfo.symbol.toUpperCase()}?apikey=85227d12425f57eca668c4fd1484e6be`;
+    if (props.portfolioInputs) {
+      const url = `https://financialmodelingprep.com/api/v3/quote/${props.portfolioInputs.symbol.toUpperCase()}?apikey=85227d12425f57eca668c4fd1484e6be`;
       fetchStockInfo(url);
     }
-  }, [props.portfolioInfo]);
+  }, [props.portfolioInputs]);
 
   const fetchStockInfo = async (url) => {
     setIsLoading(true);
@@ -27,8 +27,8 @@ const Portfolio = (props) => {
 
       const data = await res.json();
 
-      let numOfShares = Number(props.portfolioInfo.numOfShares);
-      let buyPrice = Number(props.portfolioInfo.buyPrice);
+      let numOfShares = Number(props.portfolioInputs.numOfShares);
+      let buyPrice = Number(props.portfolioInputs.buyPrice);
       let investment = Number(numOfShares * buyPrice);
       let currentPrice = Number(data[0].price.toFixed(2));
       let currentValue = Number(numOfShares * currentPrice);
@@ -60,20 +60,20 @@ const Portfolio = (props) => {
   };
 
   const handleDelete = (event) => {
-    let update = [...props.portfolio];
-    for (let i = 0; i < props.portfolio.length; i++) {
-      if (props.portfolio[i].id === event.target.parentNode.parentNode.id) {
+    let update = [...props.portfolioData];
+    for (let i = 0; i < props.portfolioData.length; i++) {
+      if (props.portfolioData[i].id === event.target.parentNode.parentNode.id) {
         update.splice(i, 1);
       }
     }
-    props.setPortfolio(update);
+    props.setPortfolioData(update);
   };
 
   return (
     <>
       {error && <p>{error}</p>}
 
-      {props.portfolio && (
+      {props.portfolioData && (
         <div className="portfolio">
           <table>
             <thead>
@@ -91,7 +91,7 @@ const Portfolio = (props) => {
               </tr>
             </thead>
             <tbody>
-              {props.portfolio.map((element) => {
+              {props.portfolioData.map((element) => {
                 return (
                   <tr key={nanoid()} id={element.id} className="hover">
                     <td>{element.name}</td>

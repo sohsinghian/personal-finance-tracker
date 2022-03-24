@@ -1,6 +1,6 @@
 import React from "react";
 
-const Filter = (props) => {
+const Sort = (props) => {
   const compareChangeAscending = (a, b) => {
     if (a.change < b.change) {
       return -1;
@@ -100,4 +100,4 @@ const Filter = (props) => {
   );
 };
 
-export default Filter;
+export default Sort;

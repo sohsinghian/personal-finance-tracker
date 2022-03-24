@@ -11,7 +11,6 @@ const PortfolioForm = (props) => {
   const [validPriceBought, setValidPriceBought] = useState(false);
 
   const [error, setError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     setValidNumOfShares(numberOfShares > 0);
@@ -38,13 +37,13 @@ const PortfolioForm = (props) => {
     event.preventDefault();
 
     if (validNumOfShares && validPriceBought) {
-      props.setPortfolioInfo({
+      props.setPortfolioInputs({
         symbol: symbol,
         numOfShares: numberOfShares,
         buyPrice: priceBought,
       });
     } else if (error) {
-      setErrorMsg("Please enter valid numbers greater than 0");
+      alert("Please enter valid numbers greater than 0");
     }
     setSymbol("");
     setNumberOfShares("");
@@ -76,7 +75,6 @@ const PortfolioForm = (props) => {
         />
         <Button type="submit" text="Add to Portfolio" />
       </form>
-      <p>{errorMsg}</p>
     </>
   );
 };

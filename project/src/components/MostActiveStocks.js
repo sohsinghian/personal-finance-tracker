@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
-import Filter from "./Filter";
+import Sort from "./Sort";
 import LoadingSpinner from "./LoadingSpinner";
 
 // https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be
@@ -104,7 +104,7 @@ const MostActiveStocks = () => {
 
   return (
     <>
-      <Filter
+      <Sort
         activeStocks={activeStocks}
         setActiveStocks={setActiveStocks}
         option1="No Filter"
