@@ -5,6 +5,7 @@ const Button = (props) => {
     <>
       <button type={props.type} onClick={props.onClick}>
         {props.text}
+
         {/* <img src="/images/search-icon.png" alt="Search"></img> */}
       </button>
     </>

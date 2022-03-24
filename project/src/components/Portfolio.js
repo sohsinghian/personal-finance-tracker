@@ -52,7 +52,9 @@ const Portfolio = (props) => {
 
       props.handlePortfolio(newStock);
     } catch (err) {
-      setError(console.log(err.message));
+      if (err.message) {
+        setError("Stock not found! Please enter a valid stock symbol.");
+      }
     }
     setIsLoading(false);
   };
@@ -69,6 +71,8 @@ const Portfolio = (props) => {
 
   return (
     <>
+      {error && <p>{error}</p>}
+
       {props.portfolio && (
         <div className="portfolio">
           <table>
@@ -89,15 +93,7 @@ const Portfolio = (props) => {
             <tbody>
               {props.portfolio.map((element) => {
                 return (
-                  <tr
-                    key={nanoid()}
-                    id={element.id}
-                    style={
-                      element.profitAndLoss > 0
-                        ? { color: "limegreen" }
-                        : { color: "red" }
-                    }
-                  >
+                  <tr key={nanoid()} id={element.id} className="hover">
                     <td>{element.name}</td>
                     <td>{element.symbol}</td>
                     <td>{element.numOfShares}</td>
@@ -117,7 +113,13 @@ const Portfolio = (props) => {
                       <span className="dollar">$</span>
                       <span className="data">{element.currentValue}</span>
                     </td>
-                    <td>
+                    <td
+                      style={
+                        element.profitAndLoss > 0
+                          ? { color: "limegreen" }
+                          : { color: "red" }
+                      }
+                    >
                       <span className="dollar">$</span>
                       <span className="data">{element.profitAndLoss}</span>
                     </td>
@@ -136,25 +138,38 @@ const Portfolio = (props) => {
                   </tr>
                 );
               })}
-              <tr>
+              <tr className="hover">
                 <td></td>
                 <td></td>
                 <td></td>
+                <td className="data">Total Investment:</td>
+                <td>
+                  <span className="dollar">$</span>
+                  <span className="data">{props.totals.totalInvestment}</span>
+                </td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td>Total Profit/Loss:</td>
+                <td className="data">Totals:</td>
                 <td
                   style={
-                    props.totalProfitAndLoss > 0
+                    props.totals.totalProfitAndLoss > 0
                       ? { color: "limegreen" }
                       : { color: "red" }
                   }
                 >
                   <span className="dollar">$</span>
-                  <span className="data">{props.totalProfitAndLoss}</span>
+                  <span className="data">
+                    {props.totals.totalProfitAndLoss}
+                  </span>
                 </td>
-                <td></td>
+                <td
+                  style={
+                    props.totals.averageROI > 0
+                      ? { color: "limegreen" }
+                      : { color: "red" }
+                  }
+                >
+                  <span className="data">{props.totals.averageROI}%</span>
+                </td>
                 <td></td>
               </tr>
             </tbody>
@@ -167,8 +182,6 @@ const Portfolio = (props) => {
           <LoadingSpinner />
         </div>
       )}
-
-      {error && <p>{error}</p>}
     </>
   );
 };

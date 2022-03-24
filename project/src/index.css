@@ -23,24 +23,15 @@ body {
   align-items: center;
 }
 
-/* td,
-tr,
-th {
-  border-bottom: 1px solid #333;
-} */
-
 td,
 th {
   padding: 0.8rem;
+  border-bottom: 1px solid grey;
 }
 
-/* th {
-  background-color: skyblue;
+.hover:hover {
+  background-color: lightcyan;
 }
-
-td {
-  background-color: white;
-} */
 
 thead {
   background-color: skyblue;
@@ -52,6 +43,7 @@ tbody {
 
 table {
   text-align: center;
+  border-collapse: collapse;
 }
 
 .active-stocks,
@@ -77,11 +69,10 @@ form {
 button {
   color: white;
   background-color: blue;
-  padding: 6px 12px;
+  padding: 0.4rem 0.5rem;
   text-align: center;
   text-decoration: none;
-  /* display: inline-block; */
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 button:hover {
@@ -89,7 +80,12 @@ button:hover {
 }
 
 input {
-  padding: 6px 4px;
+  padding: 0.4rem 0.3rem;
+}
+
+#filter {
+  padding: 0.2rem 0.5rem;
+  margin-left: 0.3rem;
 }
 
 .dollar {
@@ -98,4 +94,8 @@ input {
 
 .data {
   float: right;
+}
+
+.filter {
+  display: inline;
 }

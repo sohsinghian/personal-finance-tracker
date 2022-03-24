@@ -5,7 +5,7 @@ import PortfolioForm from "../components/PortfolioForm";
 const PortfolioPage = () => {
   const [portfolioInfo, setPortfolioInfo] = useState();
   const [portfolio, setPortfolio] = useState([]);
-  const [totalProfitAndLoss, setTotalProfitAndLoss] = useState(0);
+  const [totals, setTotals] = useState({});
 
   const handlePortfolio = (newStock) => {
     setPortfolio((prevState) => {
@@ -21,12 +21,21 @@ const PortfolioPage = () => {
 
   useEffect(() => {
     let totalPNL = 0;
+    let totalInvested = 0;
+    let overallROI = 0;
     if (portfolio.length >= 0) {
       for (let i = 0; i < portfolio.length; i++) {
         totalPNL = totalPNL + Number(portfolio[i].profitAndLoss);
+        totalInvested = totalInvested + Number(portfolio[i].investment);
+        overallROI = (totalPNL / totalInvested) * 100;
       }
 
-      setTotalProfitAndLoss(totalPNL.toFixed(2));
+      setTotals({
+        totalProfitAndLoss: totalPNL.toFixed(2),
+        totalInvestment: totalInvested.toFixed(2),
+        averageROI: overallROI.toFixed(2),
+      });
+
       localStorage.setItem("portfolio", JSON.stringify(portfolio));
     }
   }, [portfolio]);
@@ -38,13 +47,14 @@ const PortfolioPage = () => {
         portfolioInfo={portfolioInfo}
         setPortfolioInfo={setPortfolioInfo}
       />
+      <br />
       <Portfolio
         portfolioInfo={portfolioInfo}
         setPortfolioInfo={setPortfolioInfo}
         portfolio={portfolio}
         setPortfolio={setPortfolio}
         handlePortfolio={handlePortfolio}
-        totalProfitAndLoss={totalProfitAndLoss}
+        totals={totals}
       />
     </>
   );

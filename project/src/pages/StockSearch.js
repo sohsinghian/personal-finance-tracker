@@ -9,6 +9,7 @@ const StockSearch = (props) => {
     <>
       <h2>Stock Search</h2>
       <Form query={query} setQuery={setQuery} />
+      <br />
       <StockInfo query={query} />
     </>
   );

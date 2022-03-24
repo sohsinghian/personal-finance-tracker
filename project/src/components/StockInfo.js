@@ -37,7 +37,11 @@ const StockInfo = (props) => {
         percentage: data[0].changesPercentage.toFixed(2),
       });
     } catch (err) {
-      setError(console.log(err.message));
+      if (
+        err.message === "Cannot read properties of undefined (reading 'symbol')"
+      ) {
+        setError("Stock not found! Please enter valid stock symbol.");
+      }
     }
     setIsLoading(false);
   };
@@ -59,17 +63,19 @@ const StockInfo = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    style={
-                      stockInfo.change > 0
-                        ? { color: "limegreen" }
-                        : { color: "red" }
-                    }
-                  >
+                  <tr className="hover">
                     <td>{stockInfo.symbol}</td>
                     <td>{stockInfo.name}</td>
                     <td>{stockInfo.price}</td>
-                    <td>{stockInfo.change}</td>
+                    <td
+                      style={
+                        stockInfo.change > 0
+                          ? { color: "limegreen" }
+                          : { color: "red" }
+                      }
+                    >
+                      {stockInfo.change}
+                    </td>
                     <td
                       style={
                         stockInfo.percentage > 0

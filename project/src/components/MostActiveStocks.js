@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
+import Filter from "./Filter";
 import LoadingSpinner from "./LoadingSpinner";
 
 // https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be
@@ -27,6 +28,10 @@ const MostActiveStocks = () => {
 
       const data = await res.json();
 
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = i;
+      }
+
       console.log(data);
 
       setActiveStocks(data);
@@ -42,14 +47,17 @@ const MostActiveStocks = () => {
   if (activeStocks) {
     rowData = activeStocks.map((element) => {
       return (
-        <tr
-          key={nanoid()}
-          style={element.change > 0 ? { color: "limegreen" } : { color: "red" }}
-        >
+        <tr key={nanoid()} className="hover">
           <td>{element.symbol}</td>
           <td>{element.name}</td>
           <td>{element.price.toFixed(2)}</td>
-          <td>{element.change.toFixed(2)}</td>
+          <td
+            style={
+              element.change > 0 ? { color: "limegreen" } : { color: "red" }
+            }
+          >
+            {element.change.toFixed(2)}
+          </td>
           <td
             style={
               element.changesPercentage > 0
@@ -94,12 +102,22 @@ const MostActiveStocks = () => {
     );
   }
 
-  //   localStorage.setItem("activeStocks", activeStocks);
-  //   let active = localStorage.getItem("activeStocks");
-  //   console.log(active);
-
   return (
     <>
+      <Filter
+        activeStocks={activeStocks}
+        setActiveStocks={setActiveStocks}
+        option1="No Filter"
+        option2="Ascending Change"
+        option3="Descending Change"
+        option4="Ascending % Change"
+        option5="Descending % Change"
+        text1="None"
+        text2="Change ↑"
+        text3="Change ↓"
+        text4="% Change ↑"
+        text5="% Change ↓"
+      />
       <section>{content}</section>
     </>
   );
