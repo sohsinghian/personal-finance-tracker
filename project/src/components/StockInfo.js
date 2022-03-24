@@ -59,19 +59,17 @@ const StockInfo = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr
+                    style={
+                      stockInfo.change > 0
+                        ? { color: "limegreen" }
+                        : { color: "red" }
+                    }
+                  >
                     <td>{stockInfo.symbol}</td>
                     <td>{stockInfo.name}</td>
                     <td>{stockInfo.price}</td>
-                    <td
-                      style={
-                        stockInfo.change > 0
-                          ? { color: "limegreen" }
-                          : { color: "red" }
-                      }
-                    >
-                      {stockInfo.change}
-                    </td>
+                    <td>{stockInfo.change}</td>
                     <td
                       style={
                         stockInfo.percentage > 0

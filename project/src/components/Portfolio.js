@@ -8,8 +8,10 @@ const Portfolio = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const url = `https://financialmodelingprep.com/api/v3/quote/${props.portfolioInfo.symbol.toUpperCase()}?apikey=1b69ae383498bc758a5ed7838b33da15`;
-    fetchStockInfo(url);
+    if (props.portfolioInfo) {
+      const url = `https://financialmodelingprep.com/api/v3/quote/${props.portfolioInfo.symbol.toUpperCase()}?apikey=85227d12425f57eca668c4fd1484e6be`;
+      fetchStockInfo(url);
+    }
   }, [props.portfolioInfo]);
 
   const fetchStockInfo = async (url) => {
@@ -31,6 +33,7 @@ const Portfolio = (props) => {
       let currentPrice = Number(data[0].price.toFixed(2));
       let currentValue = Number(numOfShares * currentPrice);
       let profitAndLoss = Number(currentValue - investment);
+      let roi = Number((profitAndLoss / investment) * 100);
 
       let id = nanoid();
 
@@ -44,6 +47,7 @@ const Portfolio = (props) => {
         currentPrice: currentPrice.toFixed(2),
         currentValue: currentValue.toFixed(2),
         profitAndLoss: profitAndLoss.toFixed(2),
+        roi: roi.toFixed(2),
       };
 
       props.handlePortfolio(newStock);
@@ -78,28 +82,53 @@ const Portfolio = (props) => {
                 <th>Current Price</th>
                 <th>Current Value</th>
                 <th>Profit/Loss</th>
+                <th>ROI</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {props.portfolio.map((element) => {
                 return (
-                  <tr key={nanoid()} id={element.id}>
+                  <tr
+                    key={nanoid()}
+                    id={element.id}
+                    style={
+                      element.profitAndLoss > 0
+                        ? { color: "limegreen" }
+                        : { color: "red" }
+                    }
+                  >
                     <td>{element.name}</td>
                     <td>{element.symbol}</td>
                     <td>{element.numOfShares}</td>
-                    <td>${element.buyPrice}</td>
-                    <td>${element.investment}</td>
-                    <td>${element.currentPrice}</td>
-                    <td>${element.currentValue}</td>
+                    <td>
+                      <span className="dollar">$</span>
+                      <span className="data">{element.buyPrice}</span>
+                    </td>
+                    <td>
+                      <span className="dollar">$</span>
+                      <span className="data">{element.investment}</span>
+                    </td>
+                    <td>
+                      <span className="dollar">$</span>
+                      <span className="data">{element.currentPrice}</span>
+                    </td>
+                    <td>
+                      <span className="dollar">$</span>
+                      <span className="data">{element.currentValue}</span>
+                    </td>
+                    <td>
+                      <span className="dollar">$</span>
+                      <span className="data">{element.profitAndLoss}</span>
+                    </td>
                     <td
                       style={
-                        element.profitAndLoss > 0
+                        element.roi > 0
                           ? { color: "limegreen" }
                           : { color: "red" }
                       }
                     >
-                      ${element.profitAndLoss}
+                      <span className="data">{element.roi}%</span>
                     </td>
                     <td>
                       <Button text="Delete" onClick={handleDelete} />
@@ -114,7 +143,7 @@ const Portfolio = (props) => {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>Total:</td>
+                <td>Total Profit/Loss:</td>
                 <td
                   style={
                     props.totalProfitAndLoss > 0
@@ -122,8 +151,10 @@ const Portfolio = (props) => {
                       : { color: "red" }
                   }
                 >
-                  ${props.totalProfitAndLoss}
+                  <span className="dollar">$</span>
+                  <span className="data">{props.totalProfitAndLoss}</span>
                 </td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>

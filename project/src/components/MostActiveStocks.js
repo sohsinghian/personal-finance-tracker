@@ -1,10 +1,11 @@
 import { nanoid } from "nanoid";
 import React, { useState, useEffect } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
 // https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be
 
 const MostActiveStocks = () => {
-  const url = `https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=1b69ae383498bc758a5ed7838b33da15`;
+  const url = `https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=85227d12425f57eca668c4fd1484e6be`;
   const [activeStocks, setActiveStocks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -41,17 +42,14 @@ const MostActiveStocks = () => {
   if (activeStocks) {
     rowData = activeStocks.map((element) => {
       return (
-        <tr key={nanoid()}>
+        <tr
+          key={nanoid()}
+          style={element.change > 0 ? { color: "limegreen" } : { color: "red" }}
+        >
           <td>{element.symbol}</td>
           <td>{element.name}</td>
           <td>{element.price.toFixed(2)}</td>
-          <td
-            style={
-              element.change > 0 ? { color: "limegreen" } : { color: "red" }
-            }
-          >
-            {element.change.toFixed(2)}
-          </td>
+          <td>{element.change.toFixed(2)}</td>
           <td
             style={
               element.changesPercentage > 0
@@ -89,7 +87,11 @@ const MostActiveStocks = () => {
   }
 
   if (isLoading) {
-    content = <p>Loading......</p>;
+    content = (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   //   localStorage.setItem("activeStocks", activeStocks);

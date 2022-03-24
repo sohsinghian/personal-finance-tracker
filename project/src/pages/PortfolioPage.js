@@ -12,15 +12,22 @@ const PortfolioPage = () => {
       return [...prevState, newStock];
     });
   };
+  useEffect(() => {
+    if (portfolio.length === 0) {
+      let item = localStorage.getItem("portfolio");
+      setPortfolio(JSON.parse(item));
+    }
+  }, []);
 
   useEffect(() => {
     let totalPNL = 0;
-    if (portfolio.length > 0) {
+    if (portfolio.length >= 0) {
       for (let i = 0; i < portfolio.length; i++) {
         totalPNL = totalPNL + Number(portfolio[i].profitAndLoss);
       }
+
       setTotalProfitAndLoss(totalPNL.toFixed(2));
-      console.log(totalProfitAndLoss);
+      localStorage.setItem("portfolio", JSON.stringify(portfolio));
     }
   }, [portfolio]);
 
@@ -31,16 +38,14 @@ const PortfolioPage = () => {
         portfolioInfo={portfolioInfo}
         setPortfolioInfo={setPortfolioInfo}
       />
-      {portfolioInfo && (
-        <Portfolio
-          portfolioInfo={portfolioInfo}
-          setPortfolioInfo={setPortfolioInfo}
-          portfolio={portfolio}
-          setPortfolio={setPortfolio}
-          handlePortfolio={handlePortfolio}
-          totalProfitAndLoss={totalProfitAndLoss}
-        />
-      )}
+      <Portfolio
+        portfolioInfo={portfolioInfo}
+        setPortfolioInfo={setPortfolioInfo}
+        portfolio={portfolio}
+        setPortfolio={setPortfolio}
+        handlePortfolio={handlePortfolio}
+        totalProfitAndLoss={totalProfitAndLoss}
+      />
     </>
   );
 };

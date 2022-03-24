@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import ActiveStocks from "./pages/ActiveStocks";
 import Home from "./pages/Home";
 import PortfolioPage from "./pages/PortfolioPage";
 import StockSearch from "./pages/StockSearch";
+import { TextField } from "@material-ui/core";
 
 function App() {
   return (
