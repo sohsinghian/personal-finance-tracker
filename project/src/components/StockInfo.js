@@ -4,6 +4,7 @@ import LoadingSpinner from "./LoadingSpinner";
 // API key: 85227d12425f57eca668c4fd1484e6be
 
 const StockInfo = (props) => {
+  // added function toUpperCase() so can key in lower case in the input as well
   const url = `https://financialmodelingprep.com/api/v3/quote/${props.query.toUpperCase()}?apikey=1b69ae383498bc758a5ed7838b33da15`;
   const [stockInfo, setStockInfo] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +19,7 @@ const StockInfo = (props) => {
     setError(null);
 
     try {
+      // fetch stock data from API
       const res = await fetch(url);
 
       if (res.status !== 200) {
@@ -26,8 +28,7 @@ const StockInfo = (props) => {
 
       const data = await res.json();
 
-      // console.log(data);
-
+      // put the respective data needed to show into the stockInfo state
       setStockInfo({
         symbol: data[0].symbol,
         name: data[0].name,
@@ -36,6 +37,7 @@ const StockInfo = (props) => {
         percentage: data[0].changesPercentage.toFixed(2),
       });
     } catch (err) {
+      // show error message if unable to fetch API
       if (
         err.message === "Cannot read properties of undefined (reading 'symbol')"
       ) {

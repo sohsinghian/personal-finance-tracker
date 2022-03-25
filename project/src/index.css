@@ -99,3 +99,7 @@ input {
 .filter {
   display: inline;
 }
+
+.name {
+  text-align: left;
+}

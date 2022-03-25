@@ -49,7 +49,7 @@ const MostActiveStocks = () => {
       return (
         <tr key={nanoid()} className="hover">
           <td>{element.symbol}</td>
-          <td>{element.name}</td>
+          <td className="name">{element.name}</td>
           <td>{element.price.toFixed(2)}</td>
           <td
             style={

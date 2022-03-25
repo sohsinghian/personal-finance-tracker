@@ -52,10 +52,13 @@ const Sort = (props) => {
   };
 
   const handleFilterSelectionChange = (event) => {
+    // create another variable to store the exisiting array of data first.
     let updated = [...props.activeStocks];
 
     if (event.target.value === "Ascending Change") {
+      // sort the existing array of data.
       const sortedChangeAscending = updated.sort(compareChangeAscending);
+      // set the data into the state for it to rerender.
       props.setActiveStocks(sortedChangeAscending);
     }
     if (event.target.value === "Descending Change") {

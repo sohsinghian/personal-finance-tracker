@@ -102,6 +102,9 @@ bower.json
 # Ignore node_modules
 node_modules/
 
+# production
+/build
+
 # Ignore precompiled javascript packs
 /public/packs
 /public/packs-test

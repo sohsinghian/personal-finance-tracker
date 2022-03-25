@@ -8,6 +8,7 @@ const Portfolio = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // only renders when the inputs are submitted successfully
     if (props.portfolioInputs) {
       const url = `https://financialmodelingprep.com/api/v3/quote/${props.portfolioInputs.symbol.toUpperCase()}?apikey=85227d12425f57eca668c4fd1484e6be`;
       fetchStockInfo(url);
@@ -19,6 +20,7 @@ const Portfolio = (props) => {
     setError(null);
 
     try {
+      // fetch stock data from API
       const res = await fetch(url);
 
       if (res.status !== 200) {
@@ -27,6 +29,7 @@ const Portfolio = (props) => {
 
       const data = await res.json();
 
+      // put the respectively data needed into variables first so can do the calculation
       let numOfShares = Number(props.portfolioInputs.numOfShares);
       let buyPrice = Number(props.portfolioInputs.buyPrice);
       let investment = Number(numOfShares * buyPrice);
@@ -35,6 +38,7 @@ const Portfolio = (props) => {
       let profitAndLoss = Number(currentValue - investment);
       let roi = Number((profitAndLoss / investment) * 100);
 
+      // create a unique id
       let id = nanoid();
 
       let newStock = {
@@ -94,7 +98,7 @@ const Portfolio = (props) => {
               {props.portfolioData.map((element) => {
                 return (
                   <tr key={nanoid()} id={element.id} className="hover">
-                    <td>{element.name}</td>
+                    <td className="name">{element.name}</td>
                     <td>{element.symbol}</td>
                     <td>{element.numOfShares}</td>
                     <td>

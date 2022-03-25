@@ -5,7 +5,6 @@ import ActiveStocks from "./pages/ActiveStocks";
 import Home from "./pages/Home";
 import PortfolioPage from "./pages/PortfolioPage";
 import StockSearch from "./pages/StockSearch";
-import { TextField } from "@material-ui/core";
 
 function App() {
   return (

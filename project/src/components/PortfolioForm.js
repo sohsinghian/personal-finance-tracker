@@ -12,11 +12,13 @@ const PortfolioForm = (props) => {
 
   const [error, setError] = useState(false);
 
+  // form validation for numbers to be greater than 0
   useEffect(() => {
     setValidNumOfShares(numberOfShares > 0);
     setValidPriceBought(priceBought > 0);
   }, [numberOfShares, priceBought]);
 
+  // error if number is not greater than 0
   useEffect(() => {
     setError(!validNumOfShares || !validPriceBought);
   }, [error]);
@@ -45,6 +47,7 @@ const PortfolioForm = (props) => {
     } else if (error) {
       alert("Please enter valid numbers greater than 0");
     }
+
     setSymbol("");
     setNumberOfShares("");
     setPriceBought("");
